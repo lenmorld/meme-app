@@ -20,6 +20,8 @@ const App = () => {
     const [query, setQuery] = useState(SEARCH_QUERY);
     const [resultsLimit, setResultsLimit] = useState(RESULTS_LIMIT);
     const [favorites, setFavorites] = useState([]);
+    console.log('favorites:', favorites)
+    console.log('local:', localStorage)
 
     useEffect(() => {
         axios
@@ -75,17 +77,34 @@ const App = () => {
         setFavorites((prevFaves) => prevFaves.concat(meme));
     }
 
+    
     function isMemeInFavorites(meme) {
         // locates first matching or returns undefined if not found
         return favorites.find((_current) => _current.id === meme.id);
     }
-
+    
     function removeFromFavorites(meme) {
         // filter favorites to remove this one
         const filtered = favorites.filter((_current) => _current.id !== meme.id);
-
+        
         setFavorites(filtered);
     }
+    
+    function saveInLocalStorage(favoritesArray) {
+        localStorage.setItem('favorites', JSON.stringify(favoritesArray));
+    }
+
+    function getFavoritesFromLocalStorage() {
+        const favorites = localStorage.getItem('favorites');
+        console.log('favorites:', favorites)
+        if (favorites || favorites.length) {
+            setFavorites(JSON.parse(favorites));
+        }
+    }
+
+    // function removeMemeFromLocalStorage(memeId) {
+
+    // }
 
     function saveInLocalStorage(favoritesArray) {
         localStorage.setItem('favorites', JSON.stringify(favoritesArray));
