@@ -20,8 +20,6 @@ const App = () => {
     const [query, setQuery] = useState(SEARCH_QUERY);
     const [resultsLimit, setResultsLimit] = useState(RESULTS_LIMIT);
     const [favorites, setFavorites] = useState([]);
-    console.log('favorites:', favorites)
-    console.log('local:', localStorage)
 
     useEffect(() => {
         axios
@@ -96,23 +94,6 @@ const App = () => {
 
     function getFavoritesFromLocalStorage() {
         const favorites = localStorage.getItem('favorites');
-        console.log('favorites:', favorites)
-        if (favorites || favorites.length) {
-            setFavorites(JSON.parse(favorites));
-        }
-    }
-
-    // function removeMemeFromLocalStorage(memeId) {
-
-    // }
-
-    function saveInLocalStorage(favoritesArray) {
-        localStorage.setItem('favorites', JSON.stringify(favoritesArray));
-    }
-
-    function getFavoritesFromLocalStorage() {
-        const favorites = localStorage.getItem('favorites');
-        console.log('favorites:', favorites)
         if (favorites || favorites.length) {
             setFavorites(JSON.parse(favorites));
         }
