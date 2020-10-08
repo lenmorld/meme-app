@@ -2,6 +2,10 @@
 
 ![](./screens/2020-10-07-20-14-27.png)
 
+## Live demo:
+
+http://meme-app.surge.sh/
+
 ## dev
 ```bash
 $ npm install
