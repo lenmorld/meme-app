@@ -21,6 +21,23 @@ const App = () => {
     const [resultsLimit, setResultsLimit] = useState(RESULTS_LIMIT);
     const [favorites, setFavorites] = useState([]);
 
+    const storeFavorites = () => {
+        localStorage.setItem("favs", JSON.stringify(favorites));
+    }
+    
+    const retrieveFavorites = () => {
+        const favs = localStorage.getItem("favs");
+        return favs ? JSON.parse(favs) : [];
+    };
+    
+    useEffect(() => {
+        setFavorites((prevFaves) => prevFaves.concat(retrieveFavorites()));
+    }, []);
+
+    useEffect(() => {
+        storeFavorites();
+    }, [favorites]);
+    
     useEffect(() => {
         axios
             .get(
