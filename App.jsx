@@ -33,6 +33,14 @@ const App = () => {
             });
     }, []);
 
+    useEffect(() => {
+        getFavoritesFromLocalStorage();
+    }, [])
+
+    useEffect(() => {
+        saveInLocalStorage(favorites)
+    }, [favorites]);
+
     function handleThemeClick() {
         // setBackgroundColor("black");
         // setColor("white");
@@ -77,6 +85,18 @@ const App = () => {
         const filtered = favorites.filter((_current) => _current.id !== meme.id);
 
         setFavorites(filtered);
+    }
+
+    function saveInLocalStorage(favoritesArray) {
+        localStorage.setItem('favorites', JSON.stringify(favoritesArray));
+    }
+
+    function getFavoritesFromLocalStorage() {
+        const favorites = localStorage.getItem('favorites');
+        console.log('favorites:', favorites)
+        if (favorites || favorites.length) {
+            setFavorites(JSON.parse(favorites));
+        }
     }
 
     // **********************/
