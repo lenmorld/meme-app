@@ -76,17 +76,20 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .favorite {
-    margin: 0 1rem;
+    margin: 1rem 1rem;
     box-shadow: 5px 5px 5px 0 gray;
 }
 
 .favorite img {
     width: 200px;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
+    display: block;
 }
 
 h1 {
