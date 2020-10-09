@@ -94,7 +94,7 @@ const App = () => {
 
     function getFavoritesFromLocalStorage() {
         const favorites = localStorage.getItem('favorites');
-        if (favorites || favorites.length) {
+        if (favorites && favorites.length) {
             setFavorites(JSON.parse(favorites));
         }
     }
