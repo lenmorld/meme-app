@@ -54,20 +54,23 @@ body {
 }
 
 
-.meme-button {
+.meme-button,
+.unlike-button {
   cursor: pointer;
+  color: white;
+  outline: none;
   /* padding: 1px 4px 1px 7px; */
   position: absolute;
   top: 20px;
   right: 20px;
   background: transparent;
   border: none;
-
   font-size: 2rem;
   opacity: 0.5;
 }
 
-.meme-button:hover {
+.meme-button:hover,
+.unlike-button:hover {
     opacity: 1;
 }
 
@@ -81,8 +84,9 @@ body {
 }
 
 .favorite {
-    margin: 1rem 1rem;
-    box-shadow: 5px 5px 5px 0 gray;
+  position: relative;
+  margin: 1rem 1rem;
+  box-shadow: 5px 5px 5px 0 gray;
 }
 
 .favorite img {
@@ -90,6 +94,13 @@ body {
     height: 200px;
     object-fit: cover;
     display: block;
+}
+
+.unlike-button {
+  top: 10px;
+  right: 4px;
+  color: white;
+  opacity: 0.6;
 }
 
 h1 {

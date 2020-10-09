@@ -10,6 +10,7 @@ const SEARCH_QUERY = "cats";
 const RESULTS_LIMIT = 5;
 
 if (!GIPHY_API_KEY) {
+    console.log(process.env.REACT_APP_GIPHY_API_KEY);
     throw "Create .env file and put GIPHY_API_KEY!!!";
 }
 
