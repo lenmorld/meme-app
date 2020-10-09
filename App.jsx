@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import Meme from "./Meme";
-import Favorites from "./Favorites";
+import Meme from "../components/Meme";
+import Favorites from "../components/Favorites";
 
-const GIPHY_API_KEY = "MPHyugKqout4DfiKhja9Oy33uLghaigg"; // <--- PUT API KEY here
+const GIPHY_URL = process.env.REACT_APP_GIPHY_URL;
+const GIPHY_API_KEY = process.env.REACT_APP_GIPHY_API_KEY;
 const SEARCH_QUERY = "cats";
 const RESULTS_LIMIT = 5;
 
 if (!GIPHY_API_KEY) {
-    throw "PUT GIPHY_API_KEY on top of App.jsx!!! 👆👆";
+    throw "Create .env file and put GIPHY_API_KEY!!!";
 }
 
 const App = () => {
@@ -22,9 +23,10 @@ const App = () => {
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
+        getFavoritesFromLocalStorage();
         axios
             .get(
-                `https://api.giphy.com/v1/gifs/search?q=${SEARCH_QUERY}&api_key=${GIPHY_API_KEY}&limit=${RESULTS_LIMIT}`
+                `${GIPHY_URL}?q=${SEARCH_QUERY}&api_key=${GIPHY_API_KEY}&limit=${RESULTS_LIMIT}`
             )
             .then((res) => {
                 console.log(res);
@@ -32,10 +34,6 @@ const App = () => {
                 setMemes(results);
             });
     }, []);
-
-    useEffect(() => {
-        getFavoritesFromLocalStorage();
-    }, [])
 
     useEffect(() => {
         saveInLocalStorage(favorites)
@@ -58,7 +56,7 @@ const App = () => {
     function handleSearchClick(event) {
         axios
             .get(
-                `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${GIPHY_API_KEY}&limit=${resultsLimit}`
+                `${GIPHY_URL}?q=${query}&api_key=${GIPHY_API_KEY}&limit=${resultsLimit}`
             )
             .then((res) => {
                 const result = res.data.data;
@@ -75,26 +73,25 @@ const App = () => {
         setFavorites((prevFaves) => prevFaves.concat(meme));
     }
 
-    
     function isMemeInFavorites(meme) {
         // locates first matching or returns undefined if not found
         return favorites.find((_current) => _current.id === meme.id);
     }
-    
+
     function removeFromFavorites(meme) {
         // filter favorites to remove this one
         const filtered = favorites.filter((_current) => _current.id !== meme.id);
-        
+
         setFavorites(filtered);
     }
-    
+
     function saveInLocalStorage(favoritesArray) {
         localStorage.setItem('favorites', JSON.stringify(favoritesArray));
     }
 
     function getFavoritesFromLocalStorage() {
         const favorites = localStorage.getItem('favorites');
-        if (favorites && favorites.length) {
+        if (favorites || favorites.length) {
             setFavorites(JSON.parse(favorites));
         }
     }
