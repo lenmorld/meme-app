@@ -1,4 +1,5 @@
 import React from "react";
+import { IoMdHeart } from 'react-icons/io';
 
 const Meme = (props) => {
     const { item } = props;
@@ -10,7 +11,7 @@ const Meme = (props) => {
             {!props.isFavorite && (
                 <button onClick={() => props.onLike(item)} className="meme-button">
                     <span role="img" aria-label="meme">
-                        ❤️
+                        <IoMdHeart />
                     </span>
                 </button>
             )}
